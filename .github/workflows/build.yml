@@ -30,6 +30,18 @@ jobs:
       - name: Install dependencies
         run: sudo apt install flatpak flatpak-builder
 
+      - name: Add flathub
+        run: sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+      - name: Install flatpak runtime
+        run: sudo flatpak install org.freedesktop.Platform/x86_64/21.08 -y
+
+      - name: Install flatpak sdk
+        run: sudo flatpak install org.freedesktop.Sdk.Extension.node14/x86_64/21.08 -y
+
+      - name: Install flatpak base app
+        run: sudo flatpak install org.electronjs.Electron2.BaseApp/x86_64/21.08 -y
+
       - name: Install dependencies
         run: npm ci
 
