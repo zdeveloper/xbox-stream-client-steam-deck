@@ -19,23 +19,6 @@
   },
   "build": {
     "appId": "steam-deck.xbox-xcloud.client",
-    "mac": {
-      "target": {
-        "target": "dmg",
-        "arch": [
-          "universal"
-        ]
-      },
-      "mergeASARs": false,
-      "icon": "src/assets/icon.icns"
-    },
-    "win": {
-      "icon": "src/assets/icon.ico"
-    },
-    "linux": {
-      "target": "flatpak",
-      "category": "Game"
-    },
     "flatpak": {
       "runtime": "org.freedesktop.Platform",
       "sdk": "org.freedesktop.Sdk.Extension.node14",
@@ -43,10 +26,6 @@
       "baseVersion": "21.08",
       "runtimeVersion": "21.08",
       "category": "Game"
-    },
-    "nsis": {
-      "shortcutName": "xHome Streaming",
-      "runAfterFinish": true
     }
   },
   "author": "UnknownSKL <info@jimkroon.nl>",
@@ -58,10 +37,6 @@
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.67",
-    "@electron-forge/maker-deb": "^6.0.0-beta.67",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.67",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.67",
-    "@electron-forge/maker-zip": "^6.0.0-beta.67",
     "@electron-forge/plugin-webpack": "^6.0.0-beta.67",
     "@types/express": "^4.17.14",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
