@@ -1,4 +1,4 @@
-# Xbox-xCloud-Client
+# Xbox-xCloud-Client for the steam deck
 
 [![Build/release](https://github.com/unknownskl/xbox-xcloud-client/actions/workflows/build.yml/badge.svg)](https://github.com/unknownskl/xbox-xcloud-client/actions/workflows/build.yml)
 
