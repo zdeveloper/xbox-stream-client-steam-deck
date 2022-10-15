@@ -1,11 +1,11 @@
 {
-  "name": "Xbox-xCloud",
+  "name": "xbox-streaming",
   "version": "1.2.0",
-  "description": "xbox-xcloud-client is an open-source client for Xbox home streaming made in Javascript and Typescript.",
+  "description": "stream xbox locally on your steam dec",
   "main": ".webpack/main",
   "scripts": {
     "start": "ISDEV=true electron-forge start",
-    "startfullscreen": "ISDEV=true electron-forge start -- --fullscreen",
+    "startfullscreendisabled": "ISDEV=true electron-forge start -- --disable-fullscreen",
     "startconnect": "ISDEV=true electron-forge start -- --connect=F400000000000000",
     "compile": "electron-forge make",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -32,7 +32,8 @@
       "icon": "src/assets/icon.ico"
     },
     "linux": {
-      "target": "deb"
+      "target": "flatpak",
+      "category": "Game"
     },
     "nsis": {
       "shortcutName": "xHome Streaming",

@@ -15,7 +15,7 @@ declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 declare const MAIN_WINDOW_WEBPACK_ENTRY: string;
 
 const switches = {
-  fullscreen: false,
+  fullscreen: true,
   autoconnect: false,
   connectConsoleId: ''
 }
@@ -200,9 +200,9 @@ app.on('activate', () => {
 console.log('Bootstrapping Xbox-xCloud-Client using args:', process.argv)
 
 // Read fullscreen switch
-if(process.argv.includes('--fullscreen')){
-  console.log('- Fullscreen switch acive')
-  switches.fullscreen = true
+if(process.argv.includes('--disable-fullscreen')){
+  console.log('- Fullscreen switch off')
+  switches.fullscreen = false
 }
 
 // Read auto-connect switch
