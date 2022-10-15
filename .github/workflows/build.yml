@@ -28,13 +28,16 @@ jobs:
           node-version: 14
 
       - name: Install dependencies
+        run: apt install flatpak flatpak-builder
+
+      - name: Install dependencies
         run: npm ci
 
       - name: package webpack scripts
         run: npm run package
 
       - name: build flatpak
-        run: npm run build-flatpak
+        run: npm run build-flatpak-debug
 
       - name: upload flatpak
         uses: actions/upload-artifact@v2
