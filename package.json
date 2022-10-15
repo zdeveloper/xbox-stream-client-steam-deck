@@ -14,7 +14,8 @@
     "publish": "electron-forge publish",
     "lint": "eslint --ext .ts .",
     "builder": "electron-builder",
-    "build-flatpak": "electron-builder --linux flatpak"
+    "build-flatpak": "electron-builder --linux flatpak",
+    "build-flatpak-debug": "DEBUG='@malept/flatpak-bundler' electron-builder --linux flatpak"
   },
   "build": {
     "appId": "steam-deck.xbox-xcloud.client",
@@ -35,9 +36,12 @@
       "target": "flatpak",
       "category": "Game"
     },
-    "flatpak":{
-      "runtime": "org.freedesktop.Platform.GL.default",
-      "runtimeVersion": "22.08",
+    "flatpak": {
+      "runtime": "org.freedesktop.Platform",
+      "sdk": "org.freedesktop.Sdk.Extension.node14",
+      "base": "org.electronjs.Electron2.BaseApp",
+      "baseVersion": "21.08",
+      "runtimeVersion": "21.08",
       "category": "Game"
     },
     "nsis": {
@@ -83,29 +87,6 @@
   },
   "config": {
     "forge": {
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "xbox_xcloud_client"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ],
       "plugins": [
         [
           "@electron-forge/plugin-webpack",
