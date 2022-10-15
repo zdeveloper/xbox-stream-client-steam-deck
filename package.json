@@ -35,6 +35,11 @@
       "target": "flatpak",
       "category": "Game"
     },
+    "flatpak":{
+      "runtime": "org.freedesktop.Platform.GL.default",
+      "runtimeVersion": "22.08",
+      "category": "Game"
+    },
     "nsis": {
       "shortcutName": "xHome Streaming",
       "runAfterFinish": true
