@@ -16,7 +16,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [macos-latest, ubuntu-latest, windows-latest]
+        os: [ubuntu-latest]
 
     steps:
       - name: Check out Git repository
@@ -28,56 +28,31 @@ jobs:
           node-version: 14
 
       - name: Install dependencies
+        run: sudo apt install flatpak flatpak-builder
+
+      - name: Add flathub
+        run: sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+      - name: Install flatpak runtime
+        run: sudo flatpak install org.freedesktop.Platform/x86_64/21.08 -y
+
+      - name: Install flatpak sdk
+        run: sudo flatpak install org.freedesktop.Sdk.Extension.node14/x86_64/21.08 -y
+
+      - name: Install flatpak base app
+        run: sudo flatpak install org.electronjs.Electron2.BaseApp/x86_64/21.08 -y
+
+      - name: Install dependencies
         run: npm ci
 
-      - name: Compile webpack scripts
-        run: npm run compile
+      - name: package webpack scripts
+        run: npm run package
 
-      - name: Build/release Electron app
-        uses: samuelmeuli/action-electron-builder@v1
-        with:
-          # GitHub token, automatically provided to the action
-          # (No need to define this secret in the repo settings)
-          github_token: ${{ secrets.github_token }}
+      - name: build flatpak
+        run: npm run build-flatpak-debug
 
-          # If the commit is tagged with a version (e.g. "v1.0.0"),
-          # release the app after building
-          release: ${{ startsWith(github.ref, 'refs/tags/v') }}
-        if: startsWith(github.ref, 'refs/tags/v')
-
-      - name: Build/release Electron app
-        uses: samuelmeuli/action-electron-builder@v1
-        with:
-          # GitHub token, automatically provided to the action
-          # (No need to define this secret in the repo settings)
-          github_token: ${{ secrets.github_token }}
-          args: -l AppImage
-
-          # If the commit is tagged with a version (e.g. "v1.0.0"),
-          # release the app after building
-          release: ${{ startsWith(github.ref, 'refs/tags/v') }}
-        if: matrix.os == 'ubuntu-latest' && startsWith(github.ref, 'refs/tags/v')
-
-      # - name: Publish artifacts on ubuntu
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: xbox-xcloud-electron-linux.deb
-      #     path: |
-      #       dist/*.deb
-      #   if: matrix.os == 'ubuntu-latest' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v'))
-
-      # - name: Publish artifacts on osx
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: xbox-xcloud-electron-osx.dmg
-      #     path: |
-      #       dist/*.dmg
-      #   if: matrix.os == 'macos-latest' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v'))
-
-      # - name: Publish artifacts on windows
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: xbox-xcloud-electron-windows.zip
-      #     path: |
-      #       dist/*.exe
-      #   if: matrix.os == 'windows-latest' && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/v'))
+      - name: upload flatpak
+        uses: actions/upload-artifact@v2
+        with: 
+          name: assets-for-download
+          path: dist/*.flatpak

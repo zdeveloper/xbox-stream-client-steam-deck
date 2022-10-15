@@ -1,11 +1,11 @@
 {
-  "name": "Xbox-xCloud",
+  "name": "xbox-streaming",
   "version": "1.2.0",
-  "description": "xbox-xcloud-client is an open-source client for Xbox home streaming made in Javascript and Typescript.",
+  "description": "stream xbox locally on your steam dec",
   "main": ".webpack/main",
   "scripts": {
     "start": "ISDEV=true electron-forge start",
-    "startfullscreen": "ISDEV=true electron-forge start -- --fullscreen",
+    "startfullscreendisabled": "ISDEV=true electron-forge start -- --disable-fullscreen",
     "startconnect": "ISDEV=true electron-forge start -- --connect=F400000000000000",
     "compile": "electron-forge make",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -13,29 +13,19 @@
     "make": "electron-forge make",
     "publish": "electron-forge publish",
     "lint": "eslint --ext .ts .",
-    "builder": "electron-builder"
+    "builder": "electron-builder",
+    "build-flatpak": "electron-builder --linux flatpak",
+    "build-flatpak-debug": "DEBUG='@malept/flatpak-bundler' electron-builder --linux flatpak"
   },
   "build": {
-    "appId": "unknownskl.xcloud-client",
-    "mac": {
-      "target": {
-        "target": "dmg",
-        "arch": [
-          "universal"
-        ]
-      },
-      "mergeASARs": false,
-      "icon": "src/assets/icon.icns"
-    },
-    "win": {
-      "icon": "src/assets/icon.ico"
-    },
-    "linux": {
-      "target": "deb"
-    },
-    "nsis": {
-      "shortcutName": "xHome Streaming",
-      "runAfterFinish": true
+    "appId": "steam-deck.xbox-xcloud.client",
+    "flatpak": {
+      "runtime": "org.freedesktop.Platform",
+      "sdk": "org.freedesktop.Sdk.Extension.node14",
+      "base": "org.electronjs.Electron2.BaseApp",
+      "baseVersion": "21.08",
+      "runtimeVersion": "21.08",
+      "category": "Game"
     }
   },
   "author": "UnknownSKL <info@jimkroon.nl>",
@@ -47,10 +37,6 @@
   },
   "devDependencies": {
     "@electron-forge/cli": "^6.0.0-beta.67",
-    "@electron-forge/maker-deb": "^6.0.0-beta.67",
-    "@electron-forge/maker-rpm": "^6.0.0-beta.67",
-    "@electron-forge/maker-squirrel": "^6.0.0-beta.67",
-    "@electron-forge/maker-zip": "^6.0.0-beta.67",
     "@electron-forge/plugin-webpack": "^6.0.0-beta.67",
     "@types/express": "^4.17.14",
     "@typescript-eslint/eslint-plugin": "^5.40.0",
@@ -76,29 +62,6 @@
   },
   "config": {
     "forge": {
-      "packagerConfig": {},
-      "makers": [
-        {
-          "name": "@electron-forge/maker-squirrel",
-          "config": {
-            "name": "xbox_xcloud_client"
-          }
-        },
-        {
-          "name": "@electron-forge/maker-zip",
-          "platforms": [
-            "darwin"
-          ]
-        },
-        {
-          "name": "@electron-forge/maker-deb",
-          "config": {}
-        },
-        {
-          "name": "@electron-forge/maker-rpm",
-          "config": {}
-        }
-      ],
       "plugins": [
         [
           "@electron-forge/plugin-webpack",
