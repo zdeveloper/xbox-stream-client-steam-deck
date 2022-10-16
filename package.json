@@ -34,7 +34,8 @@
         "--filesystem=home", 
         "--share=network", 
         "--talk-name=org.freedesktop.Notifications",
-        "--device=all"
+        "--device=all",
+        "--socket=system-bus"
       ],
       "category": "Game"
     }
